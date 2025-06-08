@@ -13,7 +13,7 @@ window.sketch = function (p) {
   /* ───── preload ───── */
   p.preload = () => {
     handPose = ml5.handPose({ flipped: false });
-    ["C6", "D6", "E6", "F6", "G6", "A6", "B6", "C7"].forEach(
+    ["c6", "d6", "e6", "f6", "g6", "a6", "b6", "c7"].forEach(
       (n) => (pianoSounds[n] = p.loadSound(`sound/${n}.mp3`))
     );
   };
@@ -78,15 +78,15 @@ window.sketch = function (p) {
 
         const pinch = (a, b) => p.dist(a.x, a.y, b.x, b.y) < 20;
         if (hLabel === "Right") {
-          if (pinch(i, t)) play("C6");
-          if (pinch(m, t)) play("D6");
-          if (pinch(r, t)) play("E6");
-          if (pinch(pk, t)) play("F6");
+          if (pinch(i, t)) play("c6");
+          if (pinch(m, t)) play("d6");
+          if (pinch(r, t)) play("e6");
+          if (pinch(pk, t)) play("f6");
         } else {
-          if (pinch(i, t)) play("G6");
-          if (pinch(m, t)) play("A6");
-          if (pinch(r, t)) play("B6");
-          if (pinch(pk, t)) play("C7");
+          if (pinch(i, t)) play("g6");
+          if (pinch(m, t)) play("a6");
+          if (pinch(r, t)) play("b6");
+          if (pinch(pk, t)) play("c7");
         }
       }
     }
