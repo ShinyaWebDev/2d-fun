@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>p5.js Switch Example</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+      #switcher {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  </head>
+
+  <body>
+    <div id="switcher">
+      <label>Mode:</label>
+      <select id="modeSelect">
+        <option value="2DfingerMusic">2D Finger Music</option>
+        <option value="2DmultiFingersDraw">2D Multi Fingers Draw</option>
+      </select>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <!-- <script>
+      let currentSketch = null;
+
+      function loadSketch(filename) {
+        // Remove previous p5 instance
+        if (currentSketch) {
+          currentSketch.remove();
+          currentSketch = null;
+        }
+
+        // Dynamically load external sketch
+        const script = document.createElement("script");
+        script.src = filename + ".js";
+        script.onload = () => {
+          // Create a new p5 instance once script is loaded
+          currentSketch = new p5(
+            window.sketch,
+            document.getElementById("canvas-container")
+          );
+        };
+
+        document.body.appendChild(script);
+      }
+
+      document
+        .getElementById("modeSelect")
+        .addEventListener("change", function () {
+          loadSketch(this.value);
+        });
+
+      // Load default on page load
+      window.onload = () => {
+        loadSketch("2DfingerMusic");
+      };
+    </script> -->
+    <script>
+      let currentSketch = null;
+      let currentScriptEl = null; // <— NEW
+
+      function loadSketch(name) {
+        if (currentSketch) {
+          currentSketch.remove();
+          currentSketch = null;
+        }
+        if (currentScriptEl) {
+          currentScriptEl.remove();
+          currentScriptEl = null;
+        }
+        delete window.sketch; // make sure the old one is gone
+
+        currentScriptEl = document.createElement("script");
+        currentScriptEl.src = `${name}.js`;
+        currentScriptEl.onload = () => {
+          currentSketch = new p5(
+            window.sketch,
+            document.getElementById("canvas-container")
+          );
+        };
+        document.body.appendChild(currentScriptEl);
+      }
+
+      document
+        .getElementById("modeSelect")
+        .addEventListener("change", (e) => loadSketch(e.target.value));
+
+      window.onload = () => loadSketch("2DfingerMusic");
+    </script>
+  </body>
+</html>
